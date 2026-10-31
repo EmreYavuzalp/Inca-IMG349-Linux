@@ -31,7 +31,7 @@ ya da arka plan servisi yoktur. Medya tuşları ve kısayollar da farenin içind
 ## Satın al
 
 IMG-349'u Hepsiburada'dan alabilirsiniz:
-**[IMG-349 Gaming Mouse, Hepsiburada](https://www.hepsiburada.com/inca-img-349-anahita-rgb-macro-keys-professional-gaming-mouse-pm-HB00000MKHP0?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+**[IMG-349 Gaming Mouse, Hepsiburada](https://www.hepsiburada.com/ari-img-349-6400dpi-rgb-gaming-mouse-linux-macos-uyumlu-p-HBCV0000OWHXR3?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
 
 ## Henüz olmayanlar
 

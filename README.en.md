@@ -24,7 +24,7 @@ profile file and no background service. Media keys and shortcuts run inside the 
 ## Where to buy
 
 The IMG-349 is available on Hepsiburada (Turkey):
-**[IMG-349 gaming mouse on Hepsiburada](https://www.hepsiburada.com/inca-img-349-anahita-rgb-macro-keys-professional-gaming-mouse-pm-HB00000MKHP0?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+**[IMG-349 gaming mouse on Hepsiburada](https://www.hepsiburada.com/ari-img-349-6400dpi-rgb-gaming-mouse-linux-macos-uyumlu-p-HBCV0000OWHXR3?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
 
 ## Not supported yet
 
