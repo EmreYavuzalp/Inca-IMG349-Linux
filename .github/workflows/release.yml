@@ -1,0 +1,108 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  # Manual runs build the archive as a workflow artifact without publishing.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  linux-x86_64:
+    runs-on: ubuntu-latest
+    # Build against an old glibc (2.31) so the binaries run on Debian 11+,
+    # Ubuntu 20.04+, Mint 20+ and newer.
+    container: rust:1.85-bullseye
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test
+        run: cargo test --locked --features gui
+
+      - name: Build
+        run: cargo build --release --locked --features gui
+
+      - name: Check glibc requirement
+        run: |
+          need=$(objdump -T target/release/img349ctl target/release/img349ctl-gui \
+                 | grep -o 'GLIBC_[0-9.]*' | sort -Vu | tail -1)
+          echo "highest glibc symbol: $need"
+          test "$need" = "$(printf '%s\nGLIBC_2.31\n' "$need" | sort -V | head -1)"
+
+      - name: Third-party licenses
+        run: |
+          command -v python3 >/dev/null || { apt-get update && apt-get install -y --no-install-recommends python3; }
+          python3 contrib/third-party-licenses.py > THIRD-PARTY-LICENSES
+
+      - name: Package
+        run: |
+          crate=$(sed -n 's/^version = "\(.*\)"$/\1/p' Cargo.toml | head -1)
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            version=${GITHUB_REF_NAME#v}
+            test "$version" = "$crate" || { echo "tag $version != Cargo.toml $crate"; exit 1; }
+            debversion=$version
+          else
+            version=${GITHUB_SHA::7}
+            debversion="$crate~g$version"
+          fi
+          name="img349ctl-$version-x86_64-linux"
+          mkdir -p "$name/contrib" "$name/man"
+          cp target/release/img349ctl target/release/img349ctl-gui "$name/"
+          cp contrib/install.sh "$name/"
+          cp contrib/70-img349-mouse.rules contrib/img349ctl-gui.desktop "$name/contrib/"
+          cp man/img349ctl.1 "$name/man/"
+          cp LICENSE THIRD-PARTY-LICENSES README.md README.en.md "$name/"
+          tar czf "$name.tar.gz" "$name"
+          contrib/build-deb.sh "$debversion" target/release .
+          deb="img349ctl_${debversion}_amd64.deb"
+          dpkg-deb --info "$deb"
+          sha256sum "$name.tar.gz" "$deb" > SHA256SUMS
+          echo "NAME=$name" >> "$GITHUB_ENV"
+          echo "ARCHIVE=$name.tar.gz" >> "$GITHUB_ENV"
+          echo "DEB=$deb" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: img349ctl-${{ github.ref_name }}-${{ github.run_number }}
+          path: |
+            ${{ env.ARCHIVE }}
+            ${{ env.DEB }}
+            SHA256SUMS
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ env.DEB }}
+            ${{ env.ARCHIVE }}
+            SHA256SUMS
+          body: |
+            ### Kurulum
+
+            **Ubuntu, Linux Mint, Debian (en kolayı):** `${{ env.DEB }}` dosyasını indirip çift tıklayın ve **Yükle**'ye basın. Ya da terminalden:
+            ```sh
+            sudo apt install ./${{ env.DEB }}
+            ```
+            Sonra fareyi çıkarıp tekrar takın. Menüde **IMG-349 Fare Ayarları** görünür.
+
+            **Diğer dağıtımlar:** `${{ env.ARCHIVE }}` dosyasını indirin:
+            ```sh
+            tar xzf ${{ env.ARCHIVE }}
+            cd ${{ env.NAME }}
+            ./install.sh
+            ```
+
+            Debian 13'te test edildi; Debian 11, Ubuntu 20.04, Linux Mint 20 ve sonrası için derlendi (64 bit Intel/AMD).
+
+            ### Install
+
+            **Ubuntu, Linux Mint, Debian:** `sudo apt install ./${{ env.DEB }}` (or double-click the .deb), then re-plug the mouse.
+            **Other distributions:** extract `${{ env.ARCHIVE }}` and run `./install.sh`.
+            Tested on Debian 13; built for Debian 11, Ubuntu 20.04, Mint 20 and newer (x86_64).

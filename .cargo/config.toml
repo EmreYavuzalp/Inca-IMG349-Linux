@@ -1,0 +1,3 @@
+[resolver]
+# Pick dependency versions that build with the rust-version in Cargo.toml.
+incompatible-rust-versions = "fallback"

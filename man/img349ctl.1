@@ -1,0 +1,83 @@
+.TH IMG349CTL 1 "October 2026" "img349ctl 0.1.1" "User Commands"
+.SH NAME
+img349ctl \- configure the Inca IMG\-349 gaming mouse
+.SH SYNOPSIS
+.B img349ctl
+.RI [ options ]
+.I command
+.RI [ arguments ]
+.SH DESCRIPTION
+.B img349ctl
+configures the Inca IMG\-349 gaming mouse (USB ID 1bcf:08b8) without the vendor's
+Windows software: DPI levels and colours, LED mode, button bindings and polling rate.
+.PP
+The mouse keeps its settings in its own memory and can report them, so there is no
+profile file. All button functions, including media keys and shortcuts, are carried
+out by the mouse itself; no background program is needed.
+.SH OPTIONS
+.TP
+.BI \-\-device " PATH"
+Use this hidraw node instead of detecting the mouse.
+.TP
+.BR \-n ", " \-\-dry\-run
+Print the reports instead of sending them.
+.SH COMMANDS
+Commands that change a setting write only what differs and read it back to check.
+.TP
+.B status
+Show the detected mouse and its settings.
+.TP
+.B actions
+List what buttons can be bound to.
+.TP
+.BI backup " FILE"
+Save the mouse's whole memory to a file. Nothing can restore such a file; it is for
+reference.
+.TP
+.BI dpi " LEVEL VALUE"
+Set a level (1\-6) to 200, 400, 600, 800, 1000, 1200, 1600, 2000, 2400, 3200, 4800 or 6400.
+.TP
+.BI level " LEVEL"
+Switch to a DPI level.
+.TP
+.BI color " LEVEL COLOUR"
+Set a level's LED colour. LEVEL can be
+.BR all ,
+COLOUR is RRGGBB or a name such as red, orange or cyan.
+.TP
+.BI single " COLOUR"
+One colour at every DPI level: DPI colour mode with every level set to COLOUR.
+The light keeps breathing; the mouse has no steady mode.
+.TP
+.BR led " [" \fIMODE\fR "] [" \-\-speed " " \fIN\fR "] [" \-\-half | \-\-full ]
+LED mode (dpi, colorful, rainbow, floe, waltz, seasons, off), speed (0 is fastest,
+7 slowest) and brightness.
+.TP
+.BI rate " HZ"
+Polling rate: 125, 250, 500 or 1000. The mouse disconnects for a moment and restarts.
+.TP
+.BI button " BUTTON ACTION " "[\-\-mode a|b]"
+Bind a button (1\-7). The left button of mode A cannot be changed.
+.TP
+.BR mode " a|b"
+Choose the mode in use.
+.TP
+.B reset
+Put the settings back to the values read from a new mouse.
+.SH FILES
+.TP
+.I /usr/lib/udev/rules.d/70\-img349\-mouse.rules
+Gives the logged\-in user access to the mouse (from the source tree:
+.IR contrib/70\-img349\-mouse.rules ).
+.SH EXAMPLES
+.nf
+img349ctl dpi 1 800              # first level: 800 DPI
+img349ctl color all red          # every level red
+img349ctl led dpi \-\-speed 2       # show the DPI colour
+img349ctl button 4 volume\-up     # side button raises the volume
+img349ctl button 5 keys:ctrl+c   # side button copies
+img349ctl \-n reset               # show what a reset would send
+.fi
+.SH BUGS
+Macros and the fire function's repeat count and interval are not supported. See
+https://github.com/EmreYavuzalp/Inca\-IMG349\-Linux/issues

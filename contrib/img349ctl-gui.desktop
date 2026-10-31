@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=IMG-349 Mouse Settings
+Name[tr]=IMG-349 Fare Ayarları
+Comment=Configure the Inca IMG-349 gaming mouse
+Comment[tr]=Inca IMG-349 oyuncu faresini ayarlayın
+Exec=img349ctl-gui
+Icon=input-mouse
+Terminal=false
+Categories=Settings;HardwareSettings;
+Keywords=mouse;dpi;gaming;inca;fare;
+StartupWMClass=img349ctl-gui
