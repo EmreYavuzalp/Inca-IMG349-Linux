@@ -21,6 +21,11 @@ software. Comes as a command line tool (`img349ctl`) and a graphical app (`img34
 The mouse keeps its settings in its own memory and can report them, so there is no
 profile file and no background service. Media keys and shortcuts run inside the mouse too.
 
+## Where to buy
+
+The IMG-349 is available on Hepsiburada (Turkey):
+**[IMG-349 gaming mouse on Hepsiburada](https://www.hepsiburada.com/inca-img-349-anahita-rgb-macro-keys-professional-gaming-mouse-pm-HB00000MKHP0?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+
 ## Not supported yet
 
 - Macros

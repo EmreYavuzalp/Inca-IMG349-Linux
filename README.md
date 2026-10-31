@@ -28,6 +28,11 @@ bir pencere uygulaması (`img349ctl-gui`) olarak gelir.
 Fare ayarlarını kendi hafızasında tutar ve geri okutabilir, bu yüzden ayar dosyası
 ya da arka plan servisi yoktur. Medya tuşları ve kısayollar da farenin içinde çalışır.
 
+## Satın al
+
+IMG-349'u Hepsiburada'dan alabilirsiniz:
+**[IMG-349 Gaming Mouse, Hepsiburada](https://www.hepsiburada.com/inca-img-349-anahita-rgb-macro-keys-professional-gaming-mouse-pm-HB00000MKHP0?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+
 ## Henüz olmayanlar
 
 - Makrolar
